@@ -1,26 +1,25 @@
 from json import load as jload
 from psycopg2 import connect as psyconn
-from .helpFuncs import rearrangeList as hFRearrange
+from helpFuncs import rearrangeList as hFRearrange
 
-dblogin = []
-BOTTOKEN = "do2bot"
-tokenDir = "/home/lunaresk/gitProjects/telegramBots/"
-tokenFile = "bottoken.json"
+db_login = []
+BOTTOKEN = "odxbo"
+token_file = "bottoken.json"
 
-with open(tokenDir+tokenFile, "r") as file:
+with open(token_file, "r") as file:
   temp = jload(file)
-dblogin.extend(temp["psyconn"][BOTTOKEN])
+db_login.extend(temp["db_login"])
 del(temp)
 
 def getConn():
-  return psyconn(host=dblogin[0], database=dblogin[1], user=dblogin[2], password=dblogin[3])
+  return psyconn(host=db_login[0], database=db_login[1], user=db_login[2], password=db_login[3])
 
 def initDB():
   with getConn() as conn:
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS Users(TId BIGINT PRIMARY KEY NOT NULL, Lang CHAR(2) NOT NULL DEFAULT 'en', Open BOOLEAN NOT NULL DEFAULT False);")
+    cur.execute("CREATE TABLE IF NOT EXISTS Lists(Code TEXT PRIMARY KEY NOT NULL, Title TEXT NOT NULL, Owner BIGINT NOT NULL REFERENCES Users(Tid) ON UPDATE CASCADE ON DELETE CASCADE, Name TEXT NOT NULL, Message TEXT NOT NULL DEFAULT '0', Open BOOLEAN NOT NULL DEFAULT False);")
     cur.execute("CREATE TABLE IF NOT EXISTS AdminTerminals(List TEXT PRIMARY KEY NOT NULL REFERENCES Lists(Code));")
-    cur.execute("CREATE TABLE IF NOT EXISTS Lists(Code TEXT PRIMARY KEY NOT NULL, Title TEXT NOT NULL, Owner BIGINT NOT NULL REFERENCES Users(Tid) ON UPDATE CASCADE ON DELETE CASCADE, Name TEXT NOT NULL, Message TEXT NOT NULL DEFAULT '0');")
     cur.execute("CREATE TABLE IF NOT EXISTS Items(ID BIGSERIAL PRIMARY KEY NOT NULL, List TEXT NOT NULL REFERENCES Lists(Code) ON UPDATE CASCADE ON DELETE CASCADE, Item TEXT NOT NULL, Done BOOLEAN NOT NULL DEFAULT FALSE, FromUser BIGINT NOT NULL DEFAULT -1, MessageID BIGINT NOT NULL DEFAULT -1, Line SMALLINT NOT NULL DEFAULT 0);")
     cur.execute("CREATE TABLE IF NOT EXISTS Subitems(ID BIGSERIAL PRIMARY KEY NOT NULL, TopItem BIGINT NOT NULL REFERENCES Items(Id) ON UPDATE CASCADE ON DELETE CASCADE, Item TEXT NOT NULL, Done BOOLEAN NOT NULL DEFAULT FALSE, FromUser BIGINT NOT NULL DEFAULT -1, MessageID BIGINT NOT NULL DEFAULT -1, Line SMALLINT NOT NULL DEFAULT 0);")
     cur.execute("CREATE TABLE IF NOT EXISTS Coworkers(List TEXT NOT NULL REFERENCES Lists(Code) ON UPDATE CASCADE ON DELETE CASCADE, Worker BIGINT NOT NULL REFERENCES Users(Tid) ON UPDATE CASCADE ON DELETE CASCADE, Name TEXT NOT NULL, Message TEXT NOT NULL DEFAULT '0');")
@@ -80,10 +79,8 @@ def insertItems(code, items, fromuser = -1, message = -1, line = 0):
 def insertSubItem(topitem, item, fromuser = -1, message = -1, line = 0):
   with getConn() as conn:
     cur = conn.cursor()
-    cur.execute("INSERT INTO Subitems(TopItem, Item, FromUser, MessageID, Line) VALUES(%s, %s, %s, %s, %s) RETURNING Id;", (topitem, item, fromuser, message, line))
+    cur.execute("INSERT INTO Subitems(TopItem, Item, FromUser, MessageID, Line) VALUES(%s, %s, %s, %s, %s);", (topitem, item, fromuser, message, line))
     conn.commit()
-    return cur.fetchone()
-  return False
 
 def insertSubItems(repliedmsg, items, fromuser = -1, message = -1, line = 0):
   temp = getItemsByEdit(fromuser, repliedmsg)
@@ -339,7 +336,7 @@ def getOwnLists(user):
   with getConn() as conn:
     cur = conn.cursor()
     cur.execute("""SELECT * FROM Lists WHERE Owner = %s
-    OR Code IN (SELECT List FROM Coworkers WHERE Worker = %s);""", (user, user))
+    OR Code IN (SELECT Code FROM Coworkers WHERE Worker = %s);""", (user, user))
     return cur.fetchall()
 
 def getOwnedLists(user):

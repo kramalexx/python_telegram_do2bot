@@ -22,7 +22,7 @@ msgid ""
 "\n"
 "If you need help with something specific, try this one out: `/help commands`\n"
 "\n"
-"This bot is usable via inline mode. To see a list of your current lists, just type the bots name in the chat like '`@do2bot `'."
+"This bot is usable via inline mode. To see a list of your current lists, just type the bots name in the chat like '`@odxbo `'."
 msgstr ""
 
 #: helpFuncs.py:23
@@ -59,7 +59,7 @@ msgid ""
 msgstr ""
 
 #: helpFuncs.py:43
-msgid "Sharing a list is made with the inline function of telegram. You can either use the middle button at the bottom of the list or type @do2bot and the name or the code of your list to find and send it."
+msgid "Sharing a list is made with the inline function of telegram. You can either use the middle button at the bottom of the list or type @odxbo and the name or the code of your list to find and send it."
 msgstr ""
 
 #: helpFuncs.py:46
