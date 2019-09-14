@@ -15,87 +15,87 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: do2bot.py:32
+#: odxbo.py:32
 msgid "welcome"
-msgstr "Welcome to your new Do To Bot. This bot can be controlled via inline method. So just type '`@do2bot `' in your chat and wait a moment."
+msgstr "Welcome to your new Do To Bot. This bot can be controlled via inline method. So just type '`@odxbo `' in your chat and wait a moment."
 
-#: do2bot.py:33
+#: odxbo.py:33
 msgid "try"
 msgstr "Try it now"
 
-#: do2bot.py:38
+#: odxbo.py:38
 msgid "invalidargs"
 msgstr "The argument is invalid. The link provided for you might be incorrect. Please ask the owner of the list for the code of his list."
 
-#: do2bot.py:40
+#: odxbo.py:40
 msgid "notexisting"
 msgstr "The list you are searching for is not existing."
 
-#: do2bot.py:55
+#: odxbo.py:55
 msgid "notopen"
 msgstr "The list you are searching is not open. Please contact the list owner."
 
-#: do2bot.py:77
+#: odxbo.py:77
 msgid "insertname"
 msgstr "Please insert a name for the new list."
 
-#: do2bot.py:89
+#: odxbo.py:89
 msgid "notcreated"
 msgstr "I wasn't able to create a new list. I'm sorry, please try again."
 
-#: do2bot.py:130
+#: odxbo.py:130
 msgid "notspecified"
 msgstr "No list specified. Please choose one or create a list first."
 
-#: do2bot.py:134
+#: odxbo.py:134
 msgid "buttonlimit"
 msgstr "I wasn't able to insert every item due to restrictions in the length of the Inlinebuttons. I'm sorry."
 
-#: do2bot.py:147 do2bot.py:284
+#: odxbo.py:147 odxbo.py:284
 msgid "notallowed"
 msgstr "You're not allowed to do that"
 
-#: do2bot.py:149
+#: odxbo.py:149
 msgid "notunique"
 msgstr "The message you replied to is not showing an unique item of your list. It is not clear which item I should append the subitems to."
 
-#: do2bot.py:200
+#: odxbo.py:200
 msgid "notownedlists"
 msgstr "You own no lists. There is no need for a backup."
 
-#: do2bot.py:291
+#: odxbo.py:291
 msgid "revoked"
 msgstr "Revoked"
 
-#: do2bot.py:294
+#: odxbo.py:294
 msgid "leftlist"
 msgstr "Left the list"
 
-#: do2bot.py:311
+#: odxbo.py:311
 msgid "listremoved"
 msgstr "List removed"
 
-#: do2bot.py:314
+#: odxbo.py:314
 msgid "confirmremove"
 msgstr "If you really want to close the list, press again."
 
-#: do2bot.py:341
+#: odxbo.py:341
 msgid "closed"
 msgstr "Closed"
 
-#: do2bot.py:341
+#: odxbo.py:341
 msgid "listaccess"
 msgstr "List access set to {0}"
 
-#: do2bot.py:341
+#: odxbo.py:341
 msgid "open"
 msgstr "Open"
 
-#: do2bot.py:348
+#: odxbo.py:348
 msgid "itemsrearranged"
 msgstr "List items rearranged"
 
-#: do2bot.py:384
+#: odxbo.py:384
 msgid "newlist"
 msgstr "Create new list"
 

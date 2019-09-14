@@ -114,3 +114,5 @@ temp/
 
 #encryption things
 cryptfuncs.py
+
+.idea
